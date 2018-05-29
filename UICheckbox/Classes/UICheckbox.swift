@@ -60,6 +60,8 @@ import UIKit
         }
     }
 
+    open var checkmarkImage: UIImage?
+
     /*
     * Variable to store current UICheckbox select status
     */
@@ -78,7 +80,7 @@ import UIKit
 
     // MARK: Init
 
-    override func awakeFromNib() {
+    override open func awakeFromNib() {
         super.awakeFromNib()
         initDefaultParams()
     }
@@ -121,7 +123,14 @@ public extension UICheckbox {
         let frameworkBundle = Bundle(for: UICheckbox.self)
         let bundleURL = frameworkBundle.resourceURL?.appendingPathComponent("UICheckbox.bundle")
         let resourceBundle = Bundle(url: bundleURL!)
-        let image = UIImage(named: "ic_check_3x", in: resourceBundle, compatibleWith: nil)!.withRenderingMode(.alwaysTemplate)
+
+        var image: UIImage
+
+        if let checkImage = self.checkmarkImage {
+            image = checkImage.withRenderingMode(.alwaysTemplate)
+        } else {
+            image = UIImage(named: "ic_check_3x", in: resourceBundle, compatibleWith: nil)!.withRenderingMode(.alwaysTemplate)
+        }
 
         imageView?.contentMode = .scaleAspectFit
 
