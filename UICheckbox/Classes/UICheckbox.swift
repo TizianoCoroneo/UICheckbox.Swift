@@ -78,19 +78,8 @@ import UIKit
 
     // MARK: Init
 
-    /*
-    * Create a new instance of a UICheckbox
-    */
-    required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        initDefaultParams()
-    }
-
-    /*
-    * Create a new instance of a UICheckbox
-    */
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override func awakeFromNib() {
+        super.awakeFromNib()
         initDefaultParams()
     }
     
@@ -132,13 +121,13 @@ public extension UICheckbox {
         let frameworkBundle = Bundle(for: UICheckbox.self)
         let bundleURL = frameworkBundle.resourceURL?.appendingPathComponent("UICheckbox.bundle")
         let resourceBundle = Bundle(url: bundleURL!)
-        let image = UIImage(named: "ic_check_3x", in: resourceBundle, compatibleWith: nil)
+        let image = UIImage(named: "ic_check_3x", in: resourceBundle, compatibleWith: nil)!.withRenderingMode(.alwaysTemplate)
+
         imageView?.contentMode = .scaleAspectFit
 
         setImage(nil, for: UIControlState())
         setImage(image, for: .selected)
         setImage(image, for:  .highlighted)
-
     }
 
     @objc fileprivate func checkboxTapped(_ sender: UICheckbox) {
