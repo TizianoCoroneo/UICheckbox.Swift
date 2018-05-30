@@ -60,6 +60,11 @@ import UIKit
         }
     }
 
+    @IBInspectable var markImage: UIImage? = nil {
+        didSet { setCheckmark(image: self.markImage) }
+    }
+
+
     open var checkmarkImage: UIImage?
 
     /*
@@ -116,21 +121,12 @@ public extension UICheckbox {
 
         clipsToBounds = true
 
-        setCheckboxImage()
+        setCheckmark(image: self.markImage)
     }
 
-    fileprivate func setCheckboxImage() {
-        let frameworkBundle = Bundle(for: UICheckbox.self)
-        let bundleURL = frameworkBundle.resourceURL?.appendingPathComponent("UICheckbox.bundle")
-        let resourceBundle = Bundle(url: bundleURL!)
+    fileprivate func setCheckmark(image: UIImage?) {
 
-        var image: UIImage
-
-        if let checkImage = self.checkmarkImage {
-            image = checkImage.withRenderingMode(.alwaysTemplate)
-        } else {
-            image = UIImage(named: "ic_check_3x", in: resourceBundle, compatibleWith: nil)!.withRenderingMode(.alwaysTemplate)
-        }
+        let image = image?.withRenderingMode(.alwaysTemplate)
 
         imageView?.contentMode = .scaleAspectFit
 
